@@ -18,7 +18,7 @@ This project is a Google Apps Script for managing shared expenses. It processes 
    ```sh
    clasp login
    ```
-4. Open the Google Sheets document where you want to use the script. (More about the sheet's requirement below)
+4. Open the Google Sheets document where you want to use the script. (More about the sheet's requirements below)
 5. Open the script editor by navigating to `Extensions > Apps Script`.
 6. Save the script project and copy the script ID from settings.
 7. Create a new folder with a name of your choice and navigate to it.
@@ -39,15 +39,16 @@ This project is a Google Apps Script for managing shared expenses. It processes 
 
 ## GoogleSheet Requirements
 
-1. Create a Form for the sheet with these fields:
-    - Note that the title of questions are important.
+1. Create a form for the sheet with these fields:
+    - Note that the titles of questions are important.
     - `Who Spent?` must be a dropdown question with the names of the participants.
     - `Split Among?` must be a multiple-choice question with the names of the participants, the name must be the same as the names in the `Who Spent?` question.
     
       ![alt text](SampleForm.png)
 
-2. The Sheet for the form response must be renamed to `Raw`.
-3. The Sheet must look like this:
+2. The sheet for the form response must be renamed to `Raw`.
+3. Protect the `Raw` sheet for safety. (Make it allow with warning type so that you can still edit the data when you want)
+4. The fheet must look like this:
   
     ![alt text](SheetScreenshot.png)
 
