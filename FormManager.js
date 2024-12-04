@@ -6,7 +6,10 @@ function createAndGetForm () {
 
   SpreadsheetApp.flush();
 
-  ss.deleteSheet("Raw");
+  const rawSheet = ss.getSheetByName("Raw");
+  if(rawSheet){
+    ss.deleteSheet("Raw");
+  }
   const formUrl = form.getEditUrl().replace("edit", "viewform");
   const formSheet = ss.getSheets().find(s => s.getFormUrl() == formUrl);
   if (formSheet) {
