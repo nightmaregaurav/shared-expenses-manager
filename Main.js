@@ -1,6 +1,12 @@
 const FORM_ID = "";
 
 function UpdateSheets () {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const targetSheet = ss.getSheetByName("Raw");
+  if (!targetSheet) {
+    return;
+  }
+
   validateSheet();
   const rawSheets = groupRawDataByMonth();
   if (rawSheets.length === 0){
@@ -13,7 +19,6 @@ function UpdateSheets () {
     getTransactionRecommendationFor(rawSheetName.replace("Raw-", "Summary-"));
   });
 
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheets = ss.getSheets();
   const sortedSheets = ["FormInfo", "Participants", "Raw"];
   rawSheets.forEach(rawSheetName => {
