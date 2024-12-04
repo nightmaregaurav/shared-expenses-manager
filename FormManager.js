@@ -15,6 +15,12 @@ function createAndGetForm () {
   if (formSheet) {
     formSheet.setName("Raw");
   }
+
+  const formFile = DriveApp.getFileById(form.getId())
+  const spreadsheetFile = DriveApp.getFileById(ss.getId())
+  const parentFolder = spreadsheetFile.getParents().next();
+  formFile.moveTo(parentFolder);
+  
   return form;
 }
 
