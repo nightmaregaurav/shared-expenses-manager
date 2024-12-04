@@ -31,16 +31,23 @@ This is a Google Apps Script project for managing shared expenses. It processes 
 13. Add another trigger for the `UpdateSheets` function to run on form submit and Save.
 14. Add another trigger for the `UpdateForm` function to run on sheet change and Save.
 15. Use the script editor and run `CreateForm` function to create the form for the sheet and prepare the sheet for the script.
-16. Open the sheet document, navigate to `FormInfo` sheet, and copy the Form ID.
-17. Open the script editor, navigate to `Main.gs` file, and paste the Form ID to the `FORM_ID` constant.
-18. Open the sheet document, navigate to `Participants` sheet, and add the names of the participants.
+16. Open the sheet document, navigate to `Participants` sheet, and add the names of the participants.
       - These names will be displayed in the form and the sheet.
       - These names can not contain commas otherwise the script will not work as expected.
       - The names must be unique.
       - The names will be added from `A` to `A<Number of Participants>` cells.
       - `A1` cell from `Participants` sheet will not be read by the script. So you can add a title or a description to the participants.
-17. Open the sheet document, navigate to `FormInfo` sheet, and copy the Form URL.
+17. Open the sheet document, navigate to `Raw` sheet.
+18. Click on `Tools` and Click on `Manage Form` and Click on `Go to live form`.
+19. Copy the URL of the form and share it with the participants.
 18. Congrats! You have successfully installed the script. You can now start using the form accessible from the Form URL to add expenses.
+
+## Next steps
+1. All of your sheets are automatically generated and updated by the script. Except for the `Participants` sheet. And `Raw` sheet.
+2. `Participants` sheet is where you add the names of the participants. The script will read the names from this sheet.
+3. Until you add the names of the participants to the `Participants` sheet, the options in the form will show as "please", "add", "participants name", "in the", "participants", "sheet".
+4. `Raw` sheet is where you add the raw data of the expenses using the form. The script will read the data from this sheet.
+5. You can protect the `Participants` and `Raw` sheets to show a warning messages when the user tries to edit them to ensure the change is intentional.
 
 
 ## What Will the Script Do?

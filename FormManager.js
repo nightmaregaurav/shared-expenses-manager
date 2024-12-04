@@ -18,12 +18,19 @@ function createAndGetForm () {
   return form;
 }
 
-function getForm (formId) {
-  if(formId === ""){
-    throw new Error("Form ID is not configured!");
+function getForm () {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const rawSheet = ss.getSheetByName("Raw");
+  if(!rawSheet){
+    throw new Error("Raw sheet not found");
   }
-  const form = FormApp.openById(FORM_ID);
-  return form;
+
+  const formUrl = rawSheet.getFormUrl();
+  if(!formUrl){
+    throw new Error("Raw sheet is not linked to a form");
+  }
+
+  return FormApp.openByUrl(formUrl);
 }
 
 function addFormElements(form) {
@@ -125,22 +132,4 @@ function createOrUpdateWhoField(form, existingFormItems, participants) {
   whoField.setChoiceValues(participants);
   whoField.setRequired(true);
   whoField.setHelpText(whoFieldDescription);
-}
-
-function saveFormInfoToSheet(form) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let formInfoSheet = ss.getSheetByName("FormInfo");
-  if (!formInfoSheet) {
-    formInfoSheet = ss.insertSheet("FormInfo");
-  }
-
-  const a1 = "Form URL";
-  const b1 = form.getPublishedUrl();
-  const a2 = "Form ID";
-  const b2 = form.getId();
-
-  formInfoSheet.getRange("A1").setValue(a1);
-  formInfoSheet.getRange("B1").setValue(b1);
-  formInfoSheet.getRange("A2").setValue(a2);
-  formInfoSheet.getRange("B2").setValue(b2);
 }

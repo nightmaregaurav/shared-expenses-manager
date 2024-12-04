@@ -1,17 +1,25 @@
-const FORM_ID = "";
+function CreateForm () {
+  const form = createAndGetForm();
+  addFormElements(form);
+}
+
+function UpdateForm () {
+  const form = getForm();
+  addFormElements(form);
+}
 
 function UpdateSheets () {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const targetSheet = ss.getSheetByName("Raw");
   if (!targetSheet) {
-    deleteAllSheetsExcept("Participants", "FormInfo");
+    deleteAllSheetsExcept("Participants");
     return;
   }
 
   validateSheet();
   const rawSheets = groupRawDataByMonth();
   if (rawSheets.length === 0){
-    deleteAllSheetsExcept("Participants", "FormInfo", "Raw");
+    deleteAllSheetsExcept("Participants", "Raw");
     return;
   }
   rawSheets.forEach(rawSheetName => {
@@ -19,32 +27,4 @@ function UpdateSheets () {
     calculateFor(rawSheetName.replace("Raw-", "Split-"));
     getTransactionRecommendationFor(rawSheetName.replace("Raw-", "Summary-"));
   });
-
-  const sheets = ss.getSheets();
-  const sortedSheets = ["FormInfo", "Participants", "Raw"];
-  rawSheets.forEach(rawSheetName => {
-    sortedSheets.push(rawSheetName.replace("Raw-", "Recommendations-"));
-    sortedSheets.push(rawSheetName.replace("Raw-", "Summary-"));
-    sortedSheets.push(rawSheetName.replace("Raw-", "Split-"));
-    sortedSheets.push(rawSheetName.replace("Raw-", "Raw-"));
-  });
-
-  sheets.forEach(sheet => {
-    setActiveSheet(sheet);
-    if (sortedSheets.includes(sheet.getName())){
-      ss.moveActiveSheet(sortedSheets.indexOf(sheet.getName()) + 1);
-    }
-  });
-}
-
-function CreateForm () {
-  const form = createAndGetForm();
-  addFormElements(form);
-  saveFormInfoToSheet(form);
-}
-
-function UpdateForm () {
-  const form = getForm();
-  addFormElements(form);
-  saveFormInfoToSheet(form);
 }
