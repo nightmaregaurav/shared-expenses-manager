@@ -1,6 +1,6 @@
 # Shared Expenses
 
-This project is a Google Apps Script for managing shared expenses. It processes raw expense data, splits the expenses among participants, calculates the contributions, and provides transaction recommendations to settle debts.
+This is a Google Apps Script project for managing shared expenses. It processes raw expense data, splits the expenses among participants, calculates the contributions, and provides transaction recommendations to settle debts.
 
 ## Installation
 
