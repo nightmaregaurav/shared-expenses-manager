@@ -4,7 +4,7 @@ function UpdateSheets () {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const targetSheet = ss.getSheetByName("Raw");
   if (!targetSheet) {
-    deleteAllSheetsExcept("Participants", "FormInfo", "Raw");
+    deleteAllSheetsExcept("Participants", "FormInfo");
     return;
   }
 
