@@ -5,6 +5,9 @@ function CreateForm () {
 
 function UpdateForm () {
   const form = getForm();
+  if(!form){
+    return;
+  }
   addFormElements(form);
 }
 
@@ -12,7 +15,7 @@ function UpdateSheets () {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const targetSheet = ss.getSheetByName("Raw");
   if (!targetSheet) {
-    deleteAllSheetsExcept("Participants");
+    deleteAllSheetsExcept("Participants", "Raw");
     return;
   }
 

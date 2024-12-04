@@ -1,15 +1,23 @@
 function createAndGetForm () {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  form = FormApp.create("Shared Expenses");
+  const rawSheet = ss.getSheetByName("Raw");
+  if(rawSheet){
+    throw new Error("Comment this line if you know what are doing!");
+    var rawFormUrl = rawSheet.getFormUrl();
+    if (rawFormUrl){
+      FormApp.openByUrl(rawFormUrl).removeDestination();
+    }
+    ss.deleteSheet(rawSheet);
+  }
+
+  const spreadsheetFile = DriveApp.getFileById(ss.getId())
+  const spreadsheetFileName = spreadsheetFile.getName();
+  form = FormApp.create(spreadsheetFileName);
   form.setDescription("Form to record shared expenses so we can figure out who owes whom and how much.")
   form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
 
   SpreadsheetApp.flush();
 
-  const rawSheet = ss.getSheetByName("Raw");
-  if(rawSheet){
-    ss.deleteSheet("Raw");
-  }
   const formUrl = form.getEditUrl().replace("edit", "viewform");
   const formSheet = ss.getSheets().find(s => s.getFormUrl() == formUrl);
   if (formSheet) {
@@ -17,7 +25,6 @@ function createAndGetForm () {
   }
 
   const formFile = DriveApp.getFileById(form.getId())
-  const spreadsheetFile = DriveApp.getFileById(ss.getId())
   const parentFolder = spreadsheetFile.getParents().next();
   formFile.moveTo(parentFolder);
   
@@ -28,12 +35,12 @@ function getForm () {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const rawSheet = ss.getSheetByName("Raw");
   if(!rawSheet){
-    throw new Error("Raw sheet not found");
+    return;
   }
 
   const formUrl = rawSheet.getFormUrl();
   if(!formUrl){
-    throw new Error("Raw sheet is not linked to a form");
+    return;
   }
 
   return FormApp.openByUrl(formUrl);
