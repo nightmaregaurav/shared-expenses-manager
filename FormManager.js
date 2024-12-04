@@ -55,7 +55,7 @@ function addFormElements(form) {
     participantsSheet = ss.insertSheet("Participants");
   }
 
-  const firstColumn = participantsSheet.getRange("A1:A").getValues();
+  const firstColumn = participantsSheet.getRange("A2:A").getValues();
   const participants = firstColumn.map(row => row[0]).filter(cell => cell !== "");
   if (participants.length === 0){
     participants.push("please");
