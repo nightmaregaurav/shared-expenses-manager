@@ -12,12 +12,12 @@ function groupRawDataByMonth() {
   const monthGroups = {};
 
   rows.forEach(row => {
-    const date = row[5];
-    if (!(date instanceof Date)) {
+    const recordTimestamp = row[0];
+    if (!(recordTimestamp instanceof Date)) {
       return;
     }
 
-    const yearMonth = `${date.getFullYear()}-${date.toLocaleString("en-US", { month: "long" })}`;
+    const yearMonth = `${recordTimestamp.getFullYear()}-${recordTimestamp.toLocaleString("en-US", { month: "long" })}`;
     if (!monthGroups[yearMonth]) {
       monthGroups[yearMonth] = [];
     }

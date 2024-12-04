@@ -24,10 +24,11 @@ function getParticipants(rows) {
     }, []);
 }
 
-function deleteAllSheetsExcept(sheetName) {
+function deleteAllSheetsExcept(...sheetNames) {
   const sheets = SpreadsheetApp.getActiveSpreadsheet().getSheets();
   sheets.forEach(sheet => {
-    if (sheet.getName() !== sheetName) {
+    const sheetName = sheet.getName();
+    if (!sheetNames.includes(sheetName)) {
       SpreadsheetApp.getActiveSpreadsheet().deleteSheet(sheet);
     }
   });

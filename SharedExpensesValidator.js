@@ -14,7 +14,7 @@ function validateSheet() {
     throw new Error('The sheet is invalid!');
   }
 
-  if(Why != "Why"){
+  if(Why != "Why?"){
     throw new Error('The sheet is invalid!');
   }
 
