@@ -30,21 +30,22 @@ This project is a Google Apps Script for managing shared expenses. It processes 
 12. Go to triggers and create a new trigger for the `UpdateSheets` function to run on sheet change and Save.
 13. Add another trigger for the `UpdateSheets` function to run on form submit and Save.
 14. Add another trigger for the `UpdateForm` function to run on sheet change and Save.
-15. Use script editor and run `CreateForm` function to create the form for the sheet and prepare the sheet for the script.
-16. Open the sheet document and navigate to `FormInfo` sheet and copy the Form ID.
-17. Open the script editor and navigate to `Main.gs` file and paste the Form ID to the `FORM_ID` constant.
-18. Open the sheet document and navigate to `Participants` sheet and add the names of the participants.
+15. Use the script editor and run `CreateForm` function to create the form for the sheet and prepare the sheet for the script.
+16. Open the sheet document, navigate to `FormInfo` sheet, and copy the Form ID.
+17. Open the script editor, navigate to `Main.gs` file, and paste the Form ID to the `FORM_ID` constant.
+18. Open the sheet document, navigate to `Participants` sheet, and add the names of the participants.
       - These names will be displayed in the form and the sheet.
       - These names can not contain commas otherwise the script will not work as expected.
       - The names must be unique.
       - The names will be added from `A` to `A<Number of Participants>` cells.
       - `A1` cell from `Participants` sheet will not be read by the script. So you can add a title or a description to the participants.
-17. Open the sheet document and navigate to `FormInfo` sheet and copy the Form URL.
+17. Open the sheet document, navigate to `FormInfo` sheet, and copy the Form URL.
 18. Congrats! You have successfully installed the script. You can now start using the form accessible from the Form URL to add expenses.
 
 
 ## What Will the Script Do?
 - The script will process the raw data and group the expenses by month.
+   - Note that it will group by the month the expense was reported, not the date the user chose (This is to prevent changes in the monthly summary once a month is over)
 - Then the script will calculate the contributions of each participant for each month.
 - Finally, the script will provide transaction recommendations to settle debts.
 
