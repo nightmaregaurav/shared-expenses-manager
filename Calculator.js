@@ -4,7 +4,9 @@ function calculateFor(splitSheetName){
   const splitSheet = ss.getSheetByName(splitSheetName);
   const splitSheetData = splitSheet.getDataRange().getValues();
   const splitSheetHeaders = splitSheetData[0];
-  const splitSheetRows = splitSheetData.slice(1);
+  const splitSheetRows = splitSheetData
+    .slice(1)
+    .filter(row => row[5] === false);
 
   const participantsActualContribution = {};
   splitSheetRows.forEach(row => {
@@ -20,8 +22,8 @@ function calculateFor(splitSheetName){
 
   const participantsExpectedContribution = {};
 
-  const participants = splitSheetHeaders.slice(5).map(header => header.replace("'s Part", ""));
-  const participantPartSections = splitSheetRows.map(row => row.slice(5));
+  const participants = splitSheetHeaders.slice(6).map(header => header.replace("'s Part", ""));
+  const participantPartSections = splitSheetRows.map(row => row.slice(6));
   
   participants.forEach((participant, index) => {
     const participantPart = participantPartSections.map(part => part[index]);

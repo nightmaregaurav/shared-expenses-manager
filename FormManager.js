@@ -22,6 +22,7 @@ function createAndGetForm () {
   const formSheet = ss.getSheets().find(s => s.getFormUrl() == formUrl);
   if (formSheet) {
     formSheet.setName("Raw");
+    formSheet.getRange("G1").setValue("Settled?");
   }
 
   const formFile = DriveApp.getFileById(form.getId())
@@ -37,6 +38,13 @@ function getForm () {
   if(!rawSheet){
     return;
   }
+
+  const rows = rawSheet.getRange("A2:A").getValues();
+  rows.forEach((row, rowIndex) => {
+    if (row[0] !== "") {
+      rawSheet.getRange(`G${rowIndex+2}`).setDataValidation(SpreadsheetApp.newDataValidation().requireCheckbox().build());
+    }
+  });
 
   const formUrl = rawSheet.getFormUrl();
   if(!formUrl){

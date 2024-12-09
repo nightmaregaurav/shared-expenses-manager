@@ -6,7 +6,7 @@ function splitFor(rawSheetName){
   
   const participants =  getParticipants(rows);
   const participantsHeaders = participants.map(name => `${name}'s Part`);
-  const splitSheetHeaders = ["Timestamp", "Date", "Who", "Why", "Amount", ...participantsHeaders];
+  const splitSheetHeaders = ["Timestamp", "Date", "Who", "Why", "Amount", "Settled", ...participantsHeaders];
   
   const splitSheetRows = rows.map(row => {
     const transactionRecordedTimestamp = row[0];
@@ -15,6 +15,7 @@ function splitFor(rawSheetName){
     const transactionAmount = row[3];
     const transactionParticipants = row[4].split(", ");
     const transactionDate = row[5];
+    const transactionSettled = row[6];
 
     const participantPart = participants.map(participant => {
       if(transactionParticipants.includes(participant)){
@@ -30,7 +31,8 @@ function splitFor(rawSheetName){
       transactionDoneBy,
       transactionReason,
       transactionAmount,
-      ...participantPart
+      transactionSettled,
+      ...participantPart,
     ];
   });
 

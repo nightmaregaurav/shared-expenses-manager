@@ -5,6 +5,7 @@ function validateSheet() {
   const HowMuch = getCellValue("Raw", "D1");
   const SplitAmong = getCellValue("Raw", "E1");
   const When = getCellValue("Raw", "F1");
+  const Settled = getCellValue("Raw", "G1");
 
   if(Timestamp != "Timestamp"){
     throw new Error('The sheet is invalid!');
@@ -27,6 +28,10 @@ function validateSheet() {
   }
 
   if(When != "When?"){
+    throw new Error('The sheet is invalid!');
+  }
+  
+  if(Settled != "Settled?"){
     throw new Error('The sheet is invalid!');
   }
 }

@@ -51,6 +51,7 @@ This is a Google Apps Script project for managing shared expenses. It processes 
 3. Until you add the names of the participants to the `Participants` sheet, the options in the form will show as "please", "add", "participants name", "in the", "participants", "sheet".
 4. `Raw` sheet is where you add the raw data of the expenses using the form. The script will read the data from this sheet.
 5. You can protect the `Participants` and `Raw` sheets to show a warning messages when the user tries to edit them to ensure the change is intentional.
+6. Once you settle the debts, you can check the "Settled?" column in the `Raw` sheet to mark the transaction as settled. The script will not consider the settled transactions in the calculations.
 
 
 ## What Will the Script Do?
