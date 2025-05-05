@@ -3,7 +3,10 @@ function CreateForm () {
   addFormElements(form);
 }
 
-function UpdateForm () {
+function UpdateForm (e) {
+  if (e && e.changeType === 'OTHER') {
+    return;
+  }
   const form = getForm();
   if(!form){
     return;
@@ -11,7 +14,10 @@ function UpdateForm () {
   addFormElements(form);
 }
 
-function UpdateSheets () {
+function UpdateSheets (e) {
+  if (e && e.changeType === 'OTHER') {
+    return;
+  }
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const targetSheet = ss.getSheetByName("Raw");
   if (!targetSheet) {
@@ -30,4 +36,6 @@ function UpdateSheets () {
     calculateFor(rawSheetName.replace("Raw-", "Split-"));
     getTransactionRecommendationFor(rawSheetName.replace("Raw-", "Summary-"));
   });
+
+  warnAndHideSheetsExceptRawAndNonEmptyRecommendation();
 }
