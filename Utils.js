@@ -33,3 +33,29 @@ function deleteAllSheetsExcept(...sheetNames) {
     }
   });
 }
+
+function warnAndHideSheetsExceptRawAndNonEmptyRecommendation() {
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const sheets = spreadsheet.getSheets();
+
+  sheets.forEach(sheet => {
+    const name = sheet.getName();
+    const isRaw = name === "Raw";
+    const isRecommendation = name.startsWith("Recommendation");
+
+    const protections = sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET);
+    protections.forEach(p => p.remove());
+
+    const protection = sheet.protect();
+    protection.setWarningOnly(true);
+    protection.setDescription("⚠️ This sheet is protected to prevent accidental edits. Please proceed only if you're sure.");
+
+    if (!isRaw && !isRecommendation) {
+      sheet.hideSheet();
+    }
+
+    if (isRecommendation && sheet.getLastRow() <= 1) {
+      sheet.hideSheet();
+    }
+  });
+}
