@@ -52,10 +52,10 @@ function warnAndHideSheetsExceptRawAndNonEmptyRecommendation() {
 
     if (!isRaw && !isRecommendation) {
       sheet.hideSheet();
-    }
-
-    if (isRecommendation && sheet.getLastRow() <= 1) {
+    } else if (isRecommendation && sheet.getLastRow() <= 1) {
       sheet.hideSheet();
+    } else {
+      sheet.showSheet();
     }
   });
 }
